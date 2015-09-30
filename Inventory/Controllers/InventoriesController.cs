@@ -13,6 +13,17 @@ namespace Inventory.Controllers
     public class InventoriesController : Controller
     {
         private InventoryEntities db = new InventoryEntities();
+        private string v;
+        private double beginningBalance;
+        private double m_balance;
+
+        public double Balance { get; set; }
+
+        public InventoriesController(string v, double beginningBalance)
+        {
+            this.v = v;
+            this.beginningBalance = beginningBalance;
+        }
 
         // GET: Inventories
         public ActionResult Index()
@@ -113,6 +124,20 @@ namespace Inventory.Controllers
             db.Inventories.Remove(inventory);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // method under test
+        public void Debit(double amount)
+        {
+            if (amount > m_balance)
+            {
+                //throw new ArgumentOutOfRangeException("amount");
+            }
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException("amount");
+            }
+            m_balance += amount;
         }
 
         protected override void Dispose(bool disposing)
