@@ -10,7 +10,7 @@ namespace Inventory.Controllers
     {
         public ActionResult Index()
         {
-            /// Make the Build Fail 
+            return View();
         }
 
         public ActionResult About()
